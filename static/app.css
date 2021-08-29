@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@100;200;300;400;500;600&display=swap");
+
+html,
+body {
+  font-family: "Jost", sans-serif;
+  background-color: #f2f4ff;
+  font-size: 16px;
+}
+
+.btn {
+  color: #4661E6;
+  font-size: 13px;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h2 {
+  font-size: 18.72px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+h4 {
+  font-size: 15px;
+}
+
+.sugg-title {
+  color: #3a4374;
+  font-weight: 700;
+}
+
+.sugg-desc {
+  color: #647196;
+}
+
+.sugg-tab {
+  background: #f2f4ff;
+  padding: 0px 10px;
+  font-size: 14px;
+  height: 30px;
+  color: #4661E6;
+  border-radius: 10px;
+  text-transform: capitalize;
+}
+
+.upvotes {
+  background-color: #f2f4ff!important;
+  color: #3a4374!important;
+  font-weight: 700!important;
+  padding: 10px;
+  border-radius: 10px;
+}

@@ -1,13 +1,12 @@
 <template>
   <div>
-    <SuggestionHeader />
-    <SuggestionCard />
+      <NuxtChild/>
   </div>
 </template>
 
 <script>
 export default {
-    name: 'Suggestions'
+    name: 'Feedback'
 }
 </script>
 

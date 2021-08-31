@@ -6,12 +6,12 @@
 
 <script>
 export default {
-    name: 'Feedback',
+    name: 'EditFeedback',
     data() {
-        return {
-            id: this.$route.params.id
-        }
-    }
+        return {}
+    },
+
+    
 }
 </script>
 

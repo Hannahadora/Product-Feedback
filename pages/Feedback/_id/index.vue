@@ -60,11 +60,11 @@
                       <h5 class="sugg-title">{{ reply.user.name }}</h5>
                       <h5>{{ reply.user.username }}</h5>
                     </div>
-                    <span @click="toggleReply(id)" class="btn">Reply</span>
+                    <span @click="toggleReReply(id)" class="btn">Reply</span>
                   </div>
                   <h4 class="mt-3">{{ reply.content }}</h4>
 
-                  <textarea v-if="reply.replyBox" name="reply" id="replyContent" 
+                  <textarea v-if="reReplyBox" name="reply" id="replyContent" 
                     :placeholder="`Replying to @ ${reply.user.username}`"
                     class="textbox mb-5 mt-4 bg-gray-100 rounded"
                     :class="{'emptyTextBox': emptyTextBox }"
@@ -110,9 +110,8 @@ export default {
       feedback: '',
       newComment: '',
       emptyTextBox: false,
-      reply: {
-         replyBox: false,
-      },
+      replyBox: false,
+      reReplyBox: false,
       replyContent: '',
       replyingTo: '',
       newReply: {}
@@ -159,7 +158,11 @@ export default {
     },
 
     toggleReply(id) {
-      this.reply[id].replyBox = !this.reply[id].replyBox
+      this.replyBox = !this.replyBox
+    },
+
+    toggleReReply(id) {
+       this.reReplyBox = !this.reReplyBox
     },
 
     sendReply() {

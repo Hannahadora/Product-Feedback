@@ -31,7 +31,7 @@
           ></textarea>
 
           <div class="flex md:flex-row flex-col items-center md:justify-end justify-center gap-6 mb-10">
-              <button class="cancel-btn md:w-24 w-full">Cancel</button>
+              <button @click="cancel" class="cancel-btn md:w-24 w-full">Cancel</button>
               <button @click="pushFeedback(newFeedback)" class="pry-btn">Add Feedback</button>
           </div>
       </div>
@@ -85,8 +85,11 @@ export default {
                 }
                 this.$store.commit('feedbacks/addFeedback', {...this.newFeedback})
                 this.$router.push('/')
-            }
-           
+            }   
+        },
+
+        cancel() {
+            this.$router.push('/')
         }
     }
 }

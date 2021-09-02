@@ -4,12 +4,12 @@
       <HeaderCard />
       <div>
         <ul class="card filter-card mt-5">
-          <li :class="{active: type ===''}" @click="feedbackType('')" class="filter-btns">All</li>
-          <li :class="{active: type ==='ui'}" @click="feedbackType('ui')" class="filter-btns">UI</li>
-          <li :class="{active: type ==='ux'}" @click="feedbackType('ux')" class="filter-btns">UX</li>
-          <li :class="{active: type ==='enhancement'}" @click="feedbackType('enhancement')" class="filter-btns">Enhancement</li>
-          <li :class="{active: type ==='bug'}" @click="feedbackType('bug')" class="filter-btns">Bug</li>
-          <li :class="{active: type ==='feature'}" @click="feedbackType('feature')" class="filter-btns">Feature</li>
+          <li :class="{active: type ===''}" @click="feedbackType('')" class="filter-btns cursor-pointer">All</li>
+          <li :class="{active: type ==='ui'}" @click="feedbackType('ui')" class="filter-btns cursor-pointer">UI</li>
+          <li :class="{active: type ==='ux'}" @click="feedbackType('ux')" class="filter-btns cursor-pointer">UX</li>
+          <li :class="{active: type ==='enhancement'}" @click="feedbackType('enhancement')" class="filter-btns cursor-pointer">Enhancement</li>
+          <li :class="{active: type ==='bug'}" @click="feedbackType('bug')" class="filter-btns cursor-pointer">Bug</li>
+          <li :class="{active: type ==='feature'}" @click="feedbackType('feature')" class="filter-btns cursor-pointer">Feature</li>
         </ul>
       </div>
       <RoadmapCard />
@@ -45,9 +45,9 @@
                 <p class="sugg-tab">{{ x.category }}</p>
               </div>
             </div>
-            <p>
-              <img src="~/assets/shared/icon-comments.svg" alt="" class="mr-2">
-              <!-- {{ commentLength }} -->
+            <img src="~/assets/shared/icon-comments.svg" alt="" class="mr-2">
+            <p v-for="comment in displayedFeedback.comments" :key="comment.id"> 
+              {{ displayedFeedback.comments.length }}
             </p>
           </div>
         </NuxtLink>
@@ -97,7 +97,6 @@ export default {
         'allProductRequests',
         // 'allComments'
     ]),
-
    
 
     displayedFeedback() {

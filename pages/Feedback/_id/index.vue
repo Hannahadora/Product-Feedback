@@ -31,7 +31,8 @@
 
     <div class="comment-box">
       <h2 class="sugg-title">{{ feedback.comments.length }} Comments</h2>
-      <div class="comments w-full border-b border-gray-100" v-for="comment in feedback.comments" :key="comment.id">
+      <div class="comments w-full border-b border-gray-100" 
+      v-for="comment in feedback.comments" :key="comment.id" :comment="comment" >
         <div class="w-full flex items-start gap-10 py-5">
           <img class="images" :src="comment.user.image" alt="" />
           <div class="w-full">
@@ -40,18 +41,19 @@
                 <h5 class="sugg-title">{{ comment.user.name }}</h5>
                 <h5>{{ comment.user.username }}</h5>
               </div>
-              <span @click="toggleReply(id)" class="btn">Reply</span>
+              <span @click="toggleReply" class="btn">Reply</span>
             </div>
             <h4 class="mt-3">{{ comment.content }}</h4>
 
-            <textarea v-if="replyBox" name="reply" id="replyContent" :placeholder="`Replying to @ ${comment.user.username}`"
+            <textarea v-if="replyBox" 
+              :placeholder="`Replying to @ ${comment.user.username}`"
               class="textbox mb-5 mt-4 bg-gray-100 rounded"
               :class="{'emptyTextBox': emptyTextBox }"
               v-model="replyContent"
               @mouseenter="sendReply"
             ></textarea>
 
-            <div class="mt-6" v-for="reply in comment.replies" :key="reply.index">
+            <div class="mt-6" v-for="reply in comment.replies" :key="reply.id">
               <div class="w-full flex items-start gap-10 py-5">
                 <img class="images" :src="reply.user.image" alt="" />
                 <div class="w-full">
@@ -60,11 +62,11 @@
                       <h5 class="sugg-title">{{ reply.user.name }}</h5>
                       <h5>{{ reply.user.username }}</h5>
                     </div>
-                    <span @click="toggleReReply(id)" class="btn">Reply</span>
+                    <span @click="toggleReReply(reply)" class="btn">Reply</span>
                   </div>
                   <h4 class="mt-3">{{ reply.content }}</h4>
 
-                  <textarea v-if="reReplyBox" name="reply" id="replyContent" 
+                  <textarea v-if="reReplyBox"
                     :placeholder="`Replying to @ ${reply.user.username}`"
                     class="textbox mb-5 mt-4 bg-gray-100 rounded"
                     :class="{'emptyTextBox': emptyTextBox }"
@@ -161,8 +163,8 @@ export default {
       this.replyBox = !this.replyBox
     },
 
-    toggleReReply(id) {
-       this.reReplyBox = !this.reReplyBox
+    toggleReReply(reply) {
+      this.reReplyBox = !this.reReplyBox
     },
 
     sendReply() {

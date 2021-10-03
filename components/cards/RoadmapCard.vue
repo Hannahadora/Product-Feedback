@@ -2,7 +2,7 @@
   <div class="card roadmap mt-5">
     <div class="flex items-center justify-between">
         <h2>Roadmap</h2>
-        <button class="btn">view</button>
+        <NuxtLink to="/Roadmap" class="btn">view</NuxtLink>
     </div>
     <ul>
         <li class="list-item">

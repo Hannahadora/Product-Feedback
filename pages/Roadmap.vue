@@ -1,84 +1,29 @@
 <template>
-  <div>
-    <div v-for="student in students" :key="student.name">
-      <div class="flex">
-        <p>{{ student.name }}</p>
-        <div v-for="month in student.months" :key="month.name" class="flex">
-          <p>{{ month.name }}</p>
-          <div>
-            <input type="checkbox" v-model="month.week1.monday" />
-            <input type="checkbox" v-model="month.week1.tuesday" />
-            <input type="checkbox" v-model="month.week1.wednesday" />
-            <input type="checkbox" v-model="month.week1.thursday" />
-            <input type="checkbox" v-model="month.week1.friday" />
-          </div>
-          <div>
-            <input type="checkbox" v-model="month.week2.monday" />
-            <input type="checkbox" v-model="month.week2.tuesday" />
-            <input type="checkbox" v-model="month.week2.wednesday" />
-            <input type="checkbox" v-model="month.week2.thursday" />
-            <input type="checkbox" v-model="month.week2.friday" />
-          </div>
-        </div>
+  <div class="view">
+    <div class="suggestion-header">
+      <div class="flex flex-col gap-4 items-center py-2">
+        <GoBack textColor="white" />
+        <h1 class="font-bold">Roadmap</h1>
       </div>
+      <NuxtLink to="/Feedback/New">
+        <button class="sec-btn mt-3 px-7 flex items-center justify-around py-2">
+          <img src="~/assets/shared/icon-plus.svg" alt="" />
+          Add Feedback
+        </button>
+      </NuxtLink>
     </div>
   </div>
 </template>
 
 <script>
+import GoBack from "~/components/GoBack.vue";
 export default {
+  components: { GoBack },
   data() {
-    return {
-      students: [
-        {
-          name: "ada",
-          months: [
-            {
-              name: "January",
-              week1: {
-                monday: true,
-                tuesday: true,
-                wednesday: false,
-                thursday: false,
-                friday: true,
-              },
-              week2: {
-                monday: true,
-                tuesday: true,
-                wednesday: false,
-                thursday: false,
-                friday: true,
-              },
-            },
-          ],
-        },
-        {
-          name: "nkem",
-          month: [
-            {
-              name: "January",
-              week1: {
-                monday: true,
-                tuesday: true,
-                wednesday: false,
-                thursday: false,
-                friday: true,
-              },
-              week2: {
-                monday: true,
-                tuesday: true,
-                wednesday: false,
-                thursday: false,
-                friday: true,
-              },
-            },
-          ],
-        },
-      ],
-    };
+    return {}
   },
 };
 </script>
 
-<style>
+<style scoped>
 </style>

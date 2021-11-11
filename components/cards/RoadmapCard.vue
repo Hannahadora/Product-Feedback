@@ -7,15 +7,15 @@
     <ul>
         <li class="list-item">
         <span class="roadmap-name">Planned</span>
-        <span class="roadmap-amount"></span>
+        <span class="roadmap-amount">2</span>
         </li>
         <li class="list-item">
         <span class="roadmap-name">In progress</span>
-        <span class="roadmap-amount"></span>
+        <span class="roadmap-amount">3</span>
         </li>
         <li class="list-item">
         <span class="roadmap-name">Live</span>
-        <span class="roadmap-amount"></span>
+        <span class="roadmap-amount">2</span>
         </li>
     </ul>
 </div>
@@ -30,5 +30,9 @@ export default {
 </script>
 
 <style>
-
+    .list-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
 </style>

@@ -2,7 +2,7 @@
   <transition name="slide-fade">
     <div
       class="
-        suggestion-view
+        view
         flex
         lg:flex-row
         md:flex-col
@@ -209,12 +209,6 @@ export default {
 </script>
 
 <style scoped>
-.suggestion-view {
-  margin: 50px 100px;
-  justify-content: space-between;
-  gap: 25px;
-}
-
 .active {
   background: #4661e6;
   color: #fff;

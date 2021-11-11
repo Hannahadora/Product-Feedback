@@ -11,6 +11,7 @@ body {
 .btn {
   color: #4661E6;
   font-size: 13px;
+  cursor: pointer;
 }
 
 .pry-btn {
@@ -64,6 +65,12 @@ h4 {
 
 h5 {
   font-size: 14px;
+}
+
+.view {
+  margin: 50px 100px;
+  justify-content: space-between;
+  gap: 25px;
 }
 
 .suggestion-header {

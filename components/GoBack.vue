@@ -3,7 +3,7 @@
     <span
         @click="goBack" 
         class="btn font-bold flex items-center"
-        :class="{ white: textColor === 'text-white' }">
+        :class="{ 'text-white': whiteText }">
         <img class="mr-4" src="~/assets/shared/icon-arrow-left.svg" alt="">
         Go back</span>
   </div>
@@ -12,9 +12,11 @@
 <script>
 export default {
     name: 'GoBack',
-    props: [
-      'textColor'
-    ],
+    props: {
+      whiteText: {
+        type: Boolean
+      }
+    },
 
     methods: {
         goBack() {

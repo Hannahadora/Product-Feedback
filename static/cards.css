@@ -31,3 +31,13 @@
     border-radius: 10px;
     cursor: pointer;
   }
+
+  .map-card {
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    margin-top: 40px;
+  }

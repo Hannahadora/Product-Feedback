@@ -1,5 +1,5 @@
 import axios from 'axios';
-import feedbacks from '~/static/data.json'
+import feedbacks from '../static/json/data.json'
 // import router from 'vue-router'
 
 export const state = () => ({

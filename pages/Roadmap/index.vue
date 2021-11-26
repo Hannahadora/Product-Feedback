@@ -15,182 +15,182 @@
 
     <div class="flex items-start gap-10 mt-10">
       <div class="w-1/3">
-        <h1 class="sugg-title">Planned (2)</h1>
+        <h1 class="sugg-title">Planned  {{ '(' + plannedRequests.length + ')' }}</h1>
         <p>Ideas prioritized for research</p>
 
-        <div
-          class="map-card border-t-8 border-yellow-600"
-          v-for="(plan, index) in planned"
-          :key="index"
-        >
-          <NuxtLink :to="`Roadmap/planned/${plan.id}`">
-            <div class="flex flex-col gap-4">
-              <div class="flex items-center gap-4">
-                <eclipse :planned="true" />
-                <p>Planned</p>
-              </div>
-              <h1 class="sugg-title">{{ plan.topic }}</h1>
-              <p>
-                {{ plan.description }}
-              </p>
-              <div class="flex items-end justify-between">
-                <div class="flex flex-col gap-4">
-                  <p class="sugg-tab">{{ plan.status }}</p>
-                  <button
-                    class="
-                      upvotes
-                      btn
-                      flex
-                      items-center
-                      gap-2
-                      hover:bg-gray-500
-                    "
+        <div v-for="x in plannedRequests" :key="x.id">
+          <div
+            class="map-card border-t-8 border-yellow-600"
+          >
+            <NuxtLink :to="`Roadmap/planned/${x.id}`">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-4">
+                  <eclipse :planned="true" />
+                  <p>{{ x.status }}</p>
+                </div>
+                <h1 class="sugg-title">{{ x.title }}</h1>
+                <p>
+                  {{ x.description }}
+                </p>
+                <div class="flex items-end justify-between">
+                  <div class="flex flex-col gap-4">
+                    <p class="sugg-tab">{{ x.category }}</p>
+                    <button
+                      class="
+                        upvotes
+                        btn
+                        flex
+                        items-center
+                        gap-2
+                        hover:bg-gray-500
+                      "
+                    >
+                      <img
+                        class="mx-auto"
+                        src="~/assets/shared/icon-arrow-up.svg"
+                        alt=""
+                      />
+                      {{ x.upvotes }}
+                    </button>
+                  </div>
+
+                  <div
+                    class="flex items-center justify-between"
+                    v-if="x.comments"
                   >
                     <img
-                      class="mx-auto"
-                      src="~/assets/shared/icon-arrow-up.svg"
+                      src="~/assets/shared/icon-comments.svg"
                       alt=""
+                      class="mr-2"
                     />
-                    {{ plan.upvotes }}
-                  </button>
-                </div>
-
-                <div
-                  class="flex items-center justify-between"
-                  v-if="plan.comments"
-                >
-                  <img
-                    src="~/assets/shared/icon-comments.svg"
-                    alt=""
-                    class="mr-2"
-                  />
-                  <p>
-                    {{ plan.comments.length }}
-                  </p>
+                    <p>
+                      {{ x.comments.length }}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </NuxtLink>
+            </NuxtLink>
+          </div>
         </div>
       </div>
 
       <div class="w-1/3">
-        <h1 class="sugg-title">In-Progress (3)</h1>
+        <h1 class="sugg-title">In-Progress  {{ '(' + inProgress.length + ')' }}</h1>
         <p>Currently being developed</p>
 
-        <div
-          class="map-card border-t-8 border-purple-800"
-          v-for="(progress, index) in inProgress"
-          :key="index"
-        >
-          <NuxtLink :to="`Roadmap/inProgress/${progress.id}`">
-            <div class="flex flex-col gap-4">
-              <div class="flex items-center gap-4">
-                <eclipse :inProgress="true" />
-                <p>In-Progress</p>
-              </div>
-              <h1 class="sugg-title">{{ progress.topic }}</h1>
-              <p>
-                {{ progress.description }}
-              </p>
-              <div class="flex items-end justify-between">
-                <div class="flex flex-col gap-4">
-                  <p class="sugg-tab">{{ progress.status }}</p>
-                  <button
-                    class="
-                      upvotes
-                      btn
-                      flex
-                      items-center
-                      gap-2
-                      hover:bg-gray-500
-                    "
+        <div v-for="x in inProgress" :key="x.id">
+          <div
+            class="map-card border-t-8 border-purple-600"
+          >
+            <NuxtLink :to="`Roadmap/inProgress/${x.id}`">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-4">
+                  <eclipse :inProgress="true" />
+                  <p>{{ x.status }}</p>
+                </div>
+                <h1 class="sugg-title">{{ x.title }}</h1>
+                <p>
+                  {{ x.description }}
+                </p>
+                <div class="flex items-end justify-between">
+                  <div class="flex flex-col gap-4">
+                    <p class="sugg-tab">{{ x.category }}</p>
+                    <button
+                      class="
+                        upvotes
+                        btn
+                        flex
+                        items-center
+                        gap-2
+                        hover:bg-gray-500
+                      "
+                    >
+                      <img
+                        class="mx-auto"
+                        src="~/assets/shared/icon-arrow-up.svg"
+                        alt=""
+                      />
+                      {{ x.upvotes }}
+                    </button>
+                  </div>
+
+                  <div
+                    class="flex items-center justify-between"
+                    v-if="x.comments"
                   >
                     <img
-                      class="mx-auto"
-                      src="~/assets/shared/icon-arrow-up.svg"
+                      src="~/assets/shared/icon-comments.svg"
                       alt=""
+                      class="mr-2"
                     />
-                    {{ progress.upvotes }}
-                  </button>
-                </div>
-
-                <div
-                  class="flex items-center justify-between"
-                  v-if="progress.comments"
-                >
-                  <img
-                    src="~/assets/shared/icon-comments.svg"
-                    alt=""
-                    class="mr-2"
-                  />
-                  <p>
-                    {{ progress.comments.length }}
-                  </p>
+                    <p>
+                      {{ x.comments.length }}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </NuxtLink>
+            </NuxtLink>
+          </div>
         </div>
       </div>
 
       <div class="w-1/3">
-        <h1 class="sugg-title">Live (1)</h1>
+        <h1 class="sugg-title">Live {{ '(' + liveRequests.length + ')' }}</h1>
         <p>Released features</p>
 
-        <div
-          class="map-card border-t-8 border-blue-300"
-          v-for="(alive, index) in live"
-          :key="index"
-        >
-          <NuxtLink :to="`Roadmap/live/${alive.id}`">
-            <div class="flex flex-col gap-4">
-              <div class="flex items-center gap-4">
-                <eclipse :live="true" />
-                <p>Live</p>
-              </div>
-              <h1 class="sugg-title">{{ alive.topic }}</h1>
-              <p>
-                {{ alive.description }}
-              </p>
-              <div class="flex items-end justify-between">
-                <div class="flex flex-col gap-4">
-                  <p class="sugg-tab">{{ alive.status }}</p>
-                  <button
-                    class="
-                      upvotes
-                      btn
-                      flex
-                      items-center
-                      gap-2
-                      hover:bg-gray-500
-                    "
+        <div v-for="x in liveRequests" :key="x.id">
+          <div
+            class="map-card border-t-8 border-blue-400"
+          >
+            <NuxtLink :to="`Roadmap/live/${x.id}`">
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-4">
+                  <eclipse :live="true" />
+                  <p>{{ x.status }}</p>
+                </div>
+                <h1 class="sugg-title">{{ x.title }}</h1>
+                <p>
+                  {{ x.description }}
+                </p>
+                <div class="flex items-end justify-between">
+                  <div class="flex flex-col gap-4">
+                    <p class="sugg-tab">{{ x.category }}</p>
+                    <button
+                      class="
+                        upvotes
+                        btn
+                        flex
+                        items-center
+                        gap-2
+                        hover:bg-gray-500
+                      "
+                    >
+                      <img
+                        class="mx-auto"
+                        src="~/assets/shared/icon-arrow-up.svg"
+                        alt=""
+                      />
+                      {{ x.upvotes }}
+                    </button>
+                  </div>
+
+                  <div
+                    class="flex items-center justify-between"
+                    v-if="x.comments"
                   >
                     <img
-                      class="mx-auto"
-                      src="~/assets/shared/icon-arrow-up.svg"
+                      src="~/assets/shared/icon-comments.svg"
                       alt=""
+                      class="mr-2"
                     />
-                    {{ alive.upvotes }}
-                  </button>
-                </div>
-
-                <div
-                  class="flex items-center justify-between"
-                  v-if="alive.comments"
-                >
-                  <img
-                    src="~/assets/shared/icon-comments.svg"
-                    alt=""
-                    class="mr-2"
-                  />
-                  <p>
-                    {{ alive.comments.length }}
-                  </p>
+                    <p>
+                      {{ x.comments.length }}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </NuxtLink>
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </div>
@@ -208,7 +208,24 @@ export default {
   },
 
   computed: {
-    ...mapGetters("roadmap", ["planned", "inProgress", "live"]),
+    // ...mapGetters("roadmap", ["planned", "inProgress", "live"]),
+    ...mapGetters("feedbacks", [
+      "allFeedbacks",
+      "allProductRequests",
+      // 'allComments'
+    ]),
+
+    liveRequests() {
+     return this.allProductRequests.filter((el) => el.status === 'live')
+    },
+
+    plannedRequests() {
+     return this.allProductRequests.filter((el) => el.status === 'planned')
+    },
+
+    inProgress() {
+     return this.allProductRequests.filter((el) => el.status === 'in-progress')
+    },
   },
 };
 </script>

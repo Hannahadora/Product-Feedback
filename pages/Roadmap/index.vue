@@ -22,7 +22,7 @@
           <div
             class="map-card border-t-8 border-yellow-600"
           >
-            <NuxtLink :to="`Roadmap/${x.status}/${x.id}`">
+            <NuxtLink :to="`Feedback/${x.status}/${x.id}`">
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-4">
                   <eclipse :planned="true" />
@@ -82,7 +82,7 @@
           <div
             class="map-card border-t-8 border-purple-600"
           >
-            <NuxtLink :to="`Roadmap/${x.status}/${x.id}`">
+            <NuxtLink :to="`Feedback/${x.status}/${x.id}`">
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-4">
                   <eclipse :inProgress="true" />
@@ -142,7 +142,7 @@
           <div
             class="map-card border-t-8 border-blue-400"
           >
-            <NuxtLink :to="`Roadmap/${x.status}/${x.id}`">
+            <NuxtLink :to="`Feedback/${x.status}/${x.id}`">
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-4">
                   <eclipse :live="true" />

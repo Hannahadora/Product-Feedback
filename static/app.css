@@ -185,3 +185,17 @@ h5 {
   transform: translateX(10px);
   opacity: 0;
 }
+
+
+@media screen and (max-width: 1024px) {
+  .view {
+    margin: 50px 24px;
+  }
+}
+
+
+@media screen and (max-width: 540px) {
+  .view {
+    margin: 0px 24px;
+  }
+}

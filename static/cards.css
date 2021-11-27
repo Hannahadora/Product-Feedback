@@ -41,3 +41,10 @@
     height: auto;
     margin-top: 40px;
   }
+
+
+  @media screen and (max-width: 540px) {
+    .filter-card {
+      display: hidden;
+    }
+  }

@@ -3,18 +3,16 @@
     <div
       class="
         view
-        flex
-        lg:flex-row
-        md:flex-col
-        lg:items-start
-        md:items-center
-        lg:justify-between
+        lg:flex
+        md:block
+        items-start
+        justify-between
       "
     >
-      <div class="lg:w-1/5 md:w-10/12">
+      <div class="lg:w-1/5 md:w-10/12 lg:mt-0 mt-20 lg:block md:flex items-start justify-between">
         <HeaderCard />
         <div>
-          <ul class="card filter-card mt-5">
+          <ul class="card filter-card mt-5 ">
             <li
               :class="{ active: type === '' }"
               @click="feedbackType('')"
@@ -59,7 +57,7 @@
             </li>
           </ul>
         </div>
-        <RoadmapCard />
+        <RoadmapCard class="lg:block md:block hidden" />
       </div>
 
       <div class="lg:w-4/5 md:w-10/12">
@@ -85,7 +83,7 @@
 
         <div v-if="displayedFeedback">
           <NuxtLink
-            :to="`/Feedback/${x.id}`"
+            :to="`/Feedback/details/${x.id}`"
             class="sugg-box"
             v-for="x in displayedFeedback"
             :key="x.id"

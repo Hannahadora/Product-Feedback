@@ -27,14 +27,14 @@
             <p class="sugg-tab">{{ feedback.category }}</p>
           </div>
         </div>
-        <p class="flex items-center">
+        <p class="flex items-center" v-if="feedback.comments">
           <img src="~/assets/shared/icon-comments.svg" alt="" class="mr-2" />
           {{ feedback.comments.length }}
         </p>
       </div>
     </div>
 
-    <div class="comment-box">
+    <div class="comment-box" v-if="feedback.comments">
       <h2 class="sugg-title">{{ feedback.comments.length }} Comments</h2>
       <div
         class="comments w-full border-b border-gray-100"
@@ -55,7 +55,7 @@
             <h4 class="mt-3">{{ comment.content }}</h4>
 
             <textarea
-              v-if="replyBox[comment.id]"
+              v-if="`replyBox${comment.id}`"
               :placeholder="`Replying to @ ${comment.user.username}`"
               class="textbox mb-5 mt-4 bg-gray-100 rounded"
               :class="{ emptyTextBox: emptyTextBox }"
@@ -164,7 +164,13 @@ export default {
           content: this.newComment,
         };
         console.log(comment);
-        this.feedback.comments.push(comment);
+        if(this.feedback.comments) {
+          this.feedback.comments.push(comment);
+        } else {
+          this.feedback.comments = []
+          this.feedback.comments.push(comment)
+        }
+        
       }
     },
 

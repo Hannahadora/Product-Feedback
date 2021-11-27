@@ -13,9 +13,9 @@ export const state = () => ({
    addFeedback(state, newFeedback) {
      state.productRequests.unshift(newFeedback)
     },
-  //  addComment(state, newFeedback) {
-  //    state.productRequests.push(newFeedback)
-  //   }
+   addComment(state, newFeedback) {
+     state.productRequests.push(newFeedback)
+    }
   };
   
   export const actions = {

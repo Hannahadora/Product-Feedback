@@ -19,6 +19,9 @@
     border-radius: 10px;
     padding: 24px;
     background: url('https://hopeful-murdock-83580e.netlify.app/img/background-header.7cc2c6e5.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   .filter-btns {

@@ -9,7 +9,7 @@
         justify-between
       "
     >
-      <div class="lg:w-1/5 md:w-10/12 lg:mt-0 mt-20 lg:block md:flex items-start justify-between">
+      <div class="lg:w-1/5 md:w-full lg:mb-0 mb-10 lg:block md:flex items-start justify-between">
         <HeaderCard />
         <div>
           <ul class="card filter-card mt-5 ">
@@ -60,7 +60,7 @@
         <RoadmapCard class="lg:block md:block hidden" />
       </div>
 
-      <div class="lg:w-4/5 md:w-10/12">
+      <div class="lg:w-4/5 md:w-full">
         <div class="suggestion-header">
           <div class="flex items-center">
             <img

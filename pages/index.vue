@@ -9,9 +9,9 @@
         justify-between
       "
     >
-      <div class="lg:w-1/5 md:w-full lg:mb-0 mb-10 lg:block md:flex items-start justify-between">
+      <div class="lg:w-1/5 md:w-full lg:mb-0 md:mb-10 mb-0 lg:block md:flex items-start justify-between">
         <HeaderCard />
-        <div>
+        <div class="lg:block md:block hidden">
           <ul class="card filter-card mt-5 ">
             <li
               :class="{ active: type === '' }"

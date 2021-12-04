@@ -4,22 +4,24 @@
       <div
         class="
           lg:w-1/5
-          md:w-full
+          w-full
           lg:mb-0
           md:mb-10
           mb-0
           lg:block
           md:flex
           items-start
-          justify-between
+          lg:justify-between lg:gap-0
+          md:gap-3
         "
+        :class="{ relative: showMenu }"
       >
-        <HeaderCard class="lg:w-auto md:w-1/3 w-full" />
+        <HeaderCard class="lg:w-full md:w-1/3 w-full" @menu="toggleMenu" />
         <div
-          class="lg:block md:block hidden lg:w-auto md:w-1/3 w-full"
-          :class="{ menuIsOpen: 'block', menuIsClosed: 'hidden' }"
+          class="lg:block md:flex gap-3 lg:w-full md:w-2/3 w-1/2 lg:mt-5 md:mt-0 mt-5 bg-red-200 md:h-auto h-full"
+          :class="{ hidden: !showMenu }"
         >
-          <ul class="card filter-card lg:mt-5">
+          <ul class="card filter-card lg:w-auto md:w-1/2 w-full">
             <li
               :class="{ active: type === '' }"
               @click="feedbackType('')"
@@ -63,11 +65,11 @@
               Feature
             </li>
           </ul>
+
+          <RoadmapCard
+            class="md:block lg:w-auto md:w-1/2 w-full lg:mt-5 md:mt-0 mt-5"
+          />
         </div>
-        <RoadmapCard
-          class="lg:block md:block hidden lg:w-auto md:w-1/3 w-full lg:mt-5"
-          :class="{ menuIsOpen: 'block', menuIsClosed: 'hidden' }"
-        />
       </div>
 
       <div class="lg:w-4/5 md:w-full">
@@ -210,6 +212,7 @@ export default {
   data() {
     return {
       type: "",
+      showMenu: false,
     };
   },
 
@@ -245,6 +248,10 @@ export default {
   methods: {
     feedbackType(type) {
       this.type = type;
+    },
+
+    toggleMenu() {
+      this.showMenu = !this.showMenu;
     },
   },
 };

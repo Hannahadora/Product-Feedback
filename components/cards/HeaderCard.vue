@@ -9,7 +9,7 @@
         class="cursor-pointer"
         src="~/assets/shared/mobile/icon-hamburger.svg"
         alt=""
-        v-if="showMenu"
+        v-if="!showMenu"
       />
       <img
         class="cursor-pointer"
@@ -25,19 +25,17 @@
 export default {
   name: "HeaderCard",
   data() {
-    return {};
+    return {
+      showMenu: false,
+    };
   },
 
-  props: {
-    showMenu: {
-      type: Boolean,
-      default: true,
-    },
-  },
+  props: {},
 
   methods: {
     openMenu() {
-     this.showMenu = !this.showMenu
+      this.showMenu = !this.showMenu;
+      this.$emit("menu", this.showMenu);
     },
 
     // closeMenu() {

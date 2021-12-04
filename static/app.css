@@ -196,6 +196,29 @@ h5 {
 
 @media screen and (max-width: 540px) {
   .view {
-    margin: 0px 24px;
+    margin: 0px 0px;
+  }
+  .suggestion-header {
+    border-radius: 0px;
+  }
+  .sec-btn {
+    font-size: 12px;
+    border-radius: 10px;
+    padding: 0 20px;
+    /* width: 158px; */
+    height: 38px;
+  }
+  .sugg-box {
+    border-radius: 10px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 2fr;
+    grid-template-rows: 3fr;
+    gap: 24px;
+    padding: 24px;
+  }
+
+  .sugg-box :nth-child(1) {
+    order: 3;
   }
 }

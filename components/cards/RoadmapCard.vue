@@ -1,5 +1,5 @@
 <template>
-  <div class="card roadmap mt-5">
+  <div class="card roadmap">
     <div class="flex items-center justify-between">
       <h2>Roadmap</h2>
       <NuxtLink to="/Roadmap/" class="btn">view</NuxtLink>

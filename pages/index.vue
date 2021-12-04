@@ -1,18 +1,25 @@
 <template>
   <transition name="slide-fade">
-    <div
-      class="
-        view
-        lg:flex
-        md:block
-        items-start
-        justify-between
-      "
-    >
-      <div class="lg:w-1/5 md:w-full lg:mb-0 md:mb-10 mb-0 lg:block md:flex items-start justify-between">
-        <HeaderCard />
-        <div class="lg:block md:block hidden">
-          <ul class="card filter-card mt-5 ">
+    <div class="view lg:flex md:block items-start justify-between">
+      <div
+        class="
+          lg:w-1/5
+          md:w-full
+          lg:mb-0
+          md:mb-10
+          mb-0
+          lg:block
+          md:flex
+          items-start
+          justify-between
+        "
+      >
+        <HeaderCard class="lg:w-auto md:w-1/3 w-full" />
+        <div
+          class="lg:block md:block hidden lg:w-auto md:w-1/3 w-full"
+          :class="{ menuIsOpen: 'block', menuIsClosed: 'hidden' }"
+        >
+          <ul class="card filter-card lg:mt-5">
             <li
               :class="{ active: type === '' }"
               @click="feedbackType('')"
@@ -57,24 +64,31 @@
             </li>
           </ul>
         </div>
-        <RoadmapCard class="lg:block md:block hidden" />
+        <RoadmapCard
+          class="lg:block md:block hidden lg:w-auto md:w-1/3 w-full lg:mt-5"
+          :class="{ menuIsOpen: 'block', menuIsClosed: 'hidden' }"
+        />
       </div>
 
       <div class="lg:w-4/5 md:w-full">
         <div class="suggestion-header">
           <div class="flex items-center">
             <img
-              class="mr-4"
+              class="mr-4 lg:block md:block hidden"
               src="~/assets/suggestions/icon-suggestions.svg"
               alt=""
             />
-            <h2 class="font-bold">
+            <h2 class="font-bold lg:block md:block hidden">
               {{ displayedFeedback.length }} Suggestions
             </h2>
-            <p class="text-sm ml-6 font-bold">Sort By: Most Upvotes</p>
+            <p class="md:text-sm text-xs md:ml-6 font-bold">
+              Sort By: Most Upvotes
+            </p>
           </div>
           <NuxtLink to="/Feedback/New">
-            <button class="sec-btn mt-3 px-7 flex items-center justify-around">
+            <button
+              class="sec-btn md:px-7 mx-5 flex items-center justify-around"
+            >
               <img src="~/assets/shared/icon-plus.svg" alt="" />
               Add Feedback
             </button>
@@ -84,19 +98,40 @@
         <div v-if="displayedFeedback">
           <NuxtLink
             :to="`/Feedback/details/${x.id}`"
-            class="sugg-box"
+            class="sugg-box md:mx-auto m-6"
             v-for="x in displayedFeedback"
             :key="x.id"
           >
-            <button class="upvotes btn">
-              <img
-                class="mx-auto mb-1"
-                src="~/assets/shared/icon-arrow-up.svg"
-                alt=""
-              />
-              {{ x.upvotes }}
-            </button>
-            <div class="w-full flex items-center justify-between">
+            <div>
+              <button
+                class="
+                  upvotes
+                  btn
+                  md:block
+                  flex flex-row-reverse
+                  items-center
+                  gap-3
+                "
+              >
+                <img
+                  class="mx-auto mb-1"
+                  src="~/assets/shared/icon-arrow-up.svg"
+                  alt=""
+                />
+                {{ x.upvotes }}
+              </button>
+            </div>
+            <div
+              class="
+                w-full
+                flex
+                md:flex-row
+                flex-row-reverse
+                md:items-center
+                items-end
+                justify-between
+              "
+            >
               <div class="">
                 <h3 class="sugg-title">{{ x.title }}</h3>
                 <p class="sugg-desc mt-2">{{ x.description }}</p>
@@ -104,7 +139,15 @@
                   <p class="sugg-tab">{{ x.category }}</p>
                 </div>
               </div>
-              <div class="flex items-center justify-between">
+              <div
+                class="
+                  flex
+                  md:flex-row
+                  flex-row-reverse
+                  items-center
+                  justify-between
+                "
+              >
                 <img
                   src="~/assets/shared/icon-comments.svg"
                   alt=""
@@ -118,7 +161,10 @@
           </NuxtLink>
         </div>
 
-        <div v-show="displayedFeedback.length === 0" class="emptyCard my-6">
+        <div
+          v-show="displayedFeedback.length === 0"
+          class="emptyCard my-6 md:mx-auto m-6"
+        >
           <div class="w-1/2 m-auto flex flex-col justify-center items-center">
             <img
               class="mb-6"
@@ -166,10 +212,8 @@ export default {
       type: "",
     };
   },
-  
-  mounted() {
 
-  },
+  mounted() {},
 
   computed: {
     ...mapGetters("feedbacks", [

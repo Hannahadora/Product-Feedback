@@ -18,7 +18,7 @@
       >
         <HeaderCard class="lg:w-full md:w-1/3 w-full" @menu="toggleMenu" />
         <div
-          class="lg:block md:flex gap-3 lg:w-full md:w-2/3 w-1/2 lg:mt-5 md:mt-0 mt-5 bg-red-200 md:h-auto h-full"
+          class="lg:block md:flex gap-3 lg:w-full md:w-2/3 w-1/2 lg:mt-5 md:mt-0 mt-5 bg-blue-50 md:h-auto md:h-full h-screen md:relative absolute right-0 md:top-0 top-14"
           :class="{ hidden: !showMenu }"
         >
           <ul class="card filter-card lg:w-auto md:w-1/2 w-full">
@@ -206,13 +206,13 @@ export default {
   name: "index",
   components: {
     RoadmapCard,
-    HeaderCard,
+    HeaderCard
   },
 
   data() {
     return {
       type: "",
-      showMenu: false,
+      showMenu: false
     };
   },
 
@@ -221,12 +221,12 @@ export default {
   computed: {
     ...mapGetters("feedbacks", [
       "allFeedbacks",
-      "allProductRequests",
+      "allProductRequests"
       // 'allComments'
     ]),
 
     displayedFeedback() {
-      return this.allProductRequests.filter((el) => {
+      return this.allProductRequests.filter(el => {
         switch (this.type) {
           case "ui":
             return el.category === "ui";
@@ -242,7 +242,7 @@ export default {
             return this.allProductRequests;
         }
       });
-    },
+    }
   },
 
   methods: {
@@ -252,8 +252,8 @@ export default {
 
     toggleMenu() {
       this.showMenu = !this.showMenu;
-    },
-  },
+    }
+  }
 };
 </script>
 

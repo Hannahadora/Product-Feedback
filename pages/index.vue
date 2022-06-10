@@ -165,9 +165,9 @@
 
         <div
           v-show="displayedFeedback.length === 0"
-          class="emptyCard my-6 md:mx-auto m-6"
+          class="emptyCard lg:w-full w-11/12 my-6 mx-auto"
         >
-          <div class="w-1/2 m-auto flex flex-col justify-center items-center">
+          <div class="lg:w-1/2 w-10/12 m-auto flex flex-col justify-center items-center">
             <img
               class="mb-6"
               src="~/assets/suggestions/illustration-empty.svg"
@@ -214,6 +214,14 @@ export default {
       type: "",
       showMenu: false
     };
+  },
+
+  watch: {
+    type() {
+      if(this.showMenu) {
+        this.showMenu = false
+      }
+    }
   },
 
   mounted() {},

@@ -13,15 +13,39 @@
       </NuxtLink>
     </div>
 
-    <div class="flex items-start gap-10 mt-10">
-      <div class="w-1/3">
-        <h1 class="sugg-title">Planned  {{ '(' + plannedRequests.length + ')' }}</h1>
+    <div class="md:hidden flex items-start justify-between px-3 py-6 shadow">
+      <h1
+        class="text-gray-500 text-sm cursor-pointer px-3"
+        :class="{ 'text-gray-900 font-bold': showedType === 'planned' }"
+        @click="showedType = 'planned'"
+      >
+        Planned {{ "(" + plannedRequests.length + ")" }}
+      </h1>
+      <h1
+        class="text-gray-500 text-sm cursor-pointer px-3"
+        :class="{ 'text-gray-900 font-bold': showedType === 'inProgress' }"
+        @click="showedType = 'inProgress'"
+      >
+        In-Progress {{ "(" + inProgress.length + ")" }}
+      </h1>
+      <h1
+        class="text-gray-500 text-sm cursor-pointer px-3"
+        :class="{ 'text-gray-900 font-bold': showedType === 'live' }"
+        @click="showedType = 'live'"
+      >
+        Live {{ "(" + liveRequests.length + ")" }}
+      </h1>
+    </div>
+
+    <div class="md:flex items-start lg:gap-10 md:gap-2 mt-10 md:mx-auto mx-6">
+      <div class="md:w-1/3 w-full" :class="showedType === 'planned' || showedType === '' ? 'block' : 'hidden'">
+        <h1 class="sugg-title">
+          Planned {{ "(" + plannedRequests.length + ")" }}
+        </h1>
         <p>Ideas prioritized for research</p>
 
         <div v-for="x in plannedRequests" :key="x.id">
-          <div
-            class="map-card border-t-8 border-yellow-600"
-          >
+          <div class="map-card border-t-8 border-yellow-600">
             <NuxtLink :to="`Feedback/${x.status}/${x.id}`">
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-4">
@@ -74,14 +98,14 @@
         </div>
       </div>
 
-      <div class="w-1/3">
-        <h1 class="sugg-title">In-Progress  {{ '(' + inProgress.length + ')' }}</h1>
+      <div class="md:w-1/3 w-full" :class="showedType === 'inProgress' || showedType === '' ? 'block' : 'hidden'">
+        <h1 class="sugg-title">
+          In-Progress {{ "(" + inProgress.length + ")" }}
+        </h1>
         <p>Currently being developed</p>
 
         <div v-for="x in inProgress" :key="x.id">
-          <div
-            class="map-card border-t-8 border-purple-600"
-          >
+          <div class="map-card border-t-8 border-purple-600">
             <NuxtLink :to="`Feedback/${x.status}/${x.id}`">
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-4">
@@ -134,14 +158,12 @@
         </div>
       </div>
 
-      <div class="w-1/3">
-        <h1 class="sugg-title">Live {{ '(' + liveRequests.length + ')' }}</h1>
+      <div class="md:w-1/3 w-full" :class="showedType === 'live' || showedType === '' ? 'block' : 'hidden'">
+        <h1 class="sugg-title">Live {{ "(" + liveRequests.length + ")" }}</h1>
         <p>Released features</p>
 
         <div v-for="x in liveRequests" :key="x.id">
-          <div
-            class="map-card border-t-8 border-blue-400"
-          >
+          <div class="map-card border-t-8 border-blue-400">
             <NuxtLink :to="`Feedback/${x.status}/${x.id}`">
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-4">
@@ -204,31 +226,36 @@ import GoBack from "~/components/GoBack.vue";
 export default {
   components: { GoBack, Eclipse },
   data() {
-    return {};
+    return {
+      showedType: ""
+    };
+  },
+
+  watch: {
+
   },
 
   computed: {
     // ...mapGetters("roadmap", ["planned", "inProgress", "live"]),
     ...mapGetters("feedbacks", [
       "allFeedbacks",
-      "allProductRequests",
+      "allProductRequests"
       // 'allComments'
     ]),
 
     liveRequests() {
-     return this.allProductRequests.filter((el) => el.status === 'live')
+      return this.allProductRequests.filter(el => el.status === "live");
     },
 
     plannedRequests() {
-     return this.allProductRequests.filter((el) => el.status === 'planned')
+      return this.allProductRequests.filter(el => el.status === "planned");
     },
 
     inProgress() {
-     return this.allProductRequests.filter((el) => el.status === 'in-progress')
-    },
-  },
+      return this.allProductRequests.filter(el => el.status === "in-progress");
+    }
+  }
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

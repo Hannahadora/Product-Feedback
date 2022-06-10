@@ -1,14 +1,11 @@
 <template>
   <div>
-   <span @click="$emit('toggleReply', id)" class="btn">Reply</span>
+   <span @click="$emit('toggleReply')" class="btn">Reply</span>
   </div>
 </template>
 
 <script>
 export default {
-    props:[
-        id
-    ],
     data() {
         return {
         

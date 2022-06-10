@@ -5,7 +5,7 @@
         <img src="" alt="" />
         <GoBack />
       </div>
-      <NuxtLink to="/Feedback/_id/Edit/">
+      <NuxtLink :to="`/Feedback/${feedback.id}/Edit`">
         <button class="sec-btn">Edit Feedback</button>
       </NuxtLink>
     </div>
@@ -50,18 +50,12 @@
                 <h5 class="sugg-title">{{ comment.user.name }}</h5>
                 <h5>{{ comment.user.username }}</h5>
               </div>
-              <span @click="toggleReply(comment.id)" class="btn">Reply</span>
+
+              <reply-comment @toggleReply="replyTextBox = !replyTextBox" />
             </div>
             <h4 class="mt-3">{{ comment.content }}</h4>
 
-            <textarea
-              v-if="`replyBox${comment.id}`"
-              :placeholder="`Replying to @ ${comment.user.username}`"
-              class="textbox mb-5 mt-4 bg-gray-100 rounded"
-              :class="{ emptyTextBox: emptyTextBox }"
-              v-model="replyContent"
-              @mouseenter="sendReply"
-            ></textarea>
+           <reply-text-area v-if="replyTextBox" :comment="comment"/>
 
             <div class="mt-6" v-for="reply in comment.replies" :key="reply.id">
               <div class="w-full flex items-start gap-10 py-5">
@@ -72,7 +66,7 @@
                       <h5 class="sugg-title">{{ reply.user.name }}</h5>
                       <h5>{{ reply.user.username }}</h5>
                     </div>
-                    <span @click="toggleReReply(reply)" class="btn">Reply</span>
+                    <span @click="toggleReReply" class="btn">Reply</span>
                   </div>
                   <h4 class="mt-3">{{ reply.content }}</h4>
 
@@ -118,9 +112,11 @@
 <script>
 import { mapGetters } from "vuex";
 import GoBack from "~/components/GoBack.vue";
+import ReplyComment from "~/components/ReplyComment.vue";
+import ReplyTextArea from "~/components/ReplyTextArea.vue";
 
 export default {
-  components: { GoBack },
+  components: { GoBack, ReplyComment, ReplyTextArea },
   data() {
     return {
       id: this.$route.params.id,
@@ -128,22 +124,22 @@ export default {
       newComment: "",
       emptyTextBox: false,
       replyBox: false,
-      reReplyBox: false,
+      replyTextBox: false,
       replyContent: "",
       replyingTo: "",
-      newReply: {},
+      newReply: {}
     };
   },
 
   computed: {
-    ...mapGetters("feedbacks", ["allFeedbacks", "allProductRequests"]),
+    ...mapGetters("feedbacks", ["allFeedbacks", "allProductRequests"])
   },
 
   mounted() {},
 
   methods: {
     getFeedback() {
-      this.allProductRequests.forEach((e) => {
+      this.allProductRequests.forEach(e => {
         if (e.id == this.$route.params.id) {
           this.feedback = e;
         }
@@ -154,32 +150,27 @@ export default {
       if (this.newComment.length == 0) {
         this.emptyTextBox = true;
         this.timer = setTimeout(() => {
-          this.emptyTextBox = false
+          this.emptyTextBox = false;
         }, 3000);
       } else {
         var comment = {
           username: this.allFeedbacks.currentUser.username,
           name: this.allFeedbacks.currentUser.name,
           image: this.allFeedbacks.currentUser.image,
-          content: this.newComment,
+          content: this.newComment
         };
         console.log(comment);
-        if(this.feedback.comments) {
+        if (this.feedback.comments) {
           this.feedback.comments.push(comment);
         } else {
-          this.feedback.comments = []
-          this.feedback.comments.push(comment)
+          this.feedback.comments = [];
+          this.feedback.comments.push(comment);
         }
-        
       }
     },
 
-    toggleReply(id) {
-      const com = this.feedback.comments.find((comment) => comment.id === id);
-      if(com) {
-        this.replyBox = !this.replyBox
-      }
-      console.log(id)
+    toggleReply() {
+      this.replyBox = !this.replyBox;
     },
 
     toggleReReply(reply) {
@@ -189,15 +180,15 @@ export default {
     sendReply() {
       this.newReply = {
         replyContent: this.replyContent,
-        replyingTo: this.replyingTo,
+        replyingTo: this.replyingTo
       };
       console.log(this.neReply);
-    },
+    }
   },
 
   created() {
     this.getFeedback();
-  },
+  }
 };
 </script>
 

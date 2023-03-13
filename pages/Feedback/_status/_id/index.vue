@@ -5,7 +5,7 @@
         <img src="" alt="" />
         <GoBack />
       </div>
-      <NuxtLink :to="`/Feedback/${feedback.id}/Edit`">
+      <NuxtLink v-if="feedback" :to="`/Feedback/${feedback.id}/Edit`">
         <button class="sec-btn">Edit Feedback</button>
       </NuxtLink>
     </div>
@@ -17,47 +17,58 @@
           src="~/assets/shared/icon-arrow-up.svg"
           alt=""
         />
-        {{ feedback.upvotes }}
+        {{ feedback && feedback.upvotes }}
       </button>
       <div class="w-full flex items-center justify-between">
         <div class="">
-          <h3 class="sugg-title">{{ feedback.title }}</h3>
-          <p class="sugg-desc mt-2">{{ feedback.description }}</p>
+          <h3 class="sugg-title">{{ feedback && feedback.title }}</h3>
+          <p class="sugg-desc mt-2">{{ feedback && feedback.description }}</p>
           <div class="mt-2 flex">
-            <p class="sugg-tab">{{ feedback.category }}</p>
+            <p class="sugg-tab">{{ feedback && feedback.category }}</p>
           </div>
         </div>
-        <p class="flex items-center" v-if="feedback.comments">
+        <p class="flex items-center" v-if="feedback && feedback.comments">
           <img src="~/assets/shared/icon-comments.svg" alt="" class="mr-2" />
-          {{ feedback.comments.length }}
+          {{ feedback && feedback.comments && feedback.comments.length }}
         </p>
       </div>
     </div>
 
-    <div class="comment-box" v-if="feedback.comments">
-      <h2 class="sugg-title">{{ feedback.comments.length }} Comments</h2>
+    <div class="comment-box" v-if="feedback && feedback.comments">
+      <h2 class="sugg-title">
+        {{ feedback && feedback.comments && feedback.comments.length }} Comments
+      </h2>
       <div
         class="comments w-full border-b border-gray-100"
-        v-for="comment in feedback.comments"
-        :key="comment.id"
-        :comment="comment"
+        v-for="(comment, idx) in feedback.comments"
+        :key="idx"
       >
         <div class="w-full flex items-start gap-10 py-5">
-          <img class="images" :src="comment.user.image" alt="" />
+          <img
+            class="images"
+            :src="comment && comment.user && comment.user.image"
+            alt=""
+          />
           <div class="w-full">
             <div class="flex items-center justify-between">
               <div class="">
-                <h5 class="sugg-title">{{ comment.user.name }}</h5>
-                <h5>{{ comment.user.username }}</h5>
+                <h5 class="sugg-title">
+                  {{ comment && comment.user && comment.user.name }}
+                </h5>
+                <h5>{{ comment && comment.user && comment.user.username }}</h5>
               </div>
 
               <reply-comment @toggleReply="replyTextBox = !replyTextBox" />
             </div>
-            <h4 class="mt-3">{{ comment.content }}</h4>
+            <h4 class="mt-3">{{ comment && comment.content }}</h4>
 
-           <reply-text-area v-if="replyTextBox" :comment="comment"/>
+            <reply-text-area v-if="replyTextBox" :comment="comment" :user="user"/>
 
-            <div class="mt-6" v-for="reply in comment.replies" :key="reply.id">
+            <div
+              class="mt-6"
+              v-for="reply in comment && comment.replies"
+              :key="reply.id"
+            >
               <div class="w-full flex items-start gap-10 py-5">
                 <img class="images" :src="reply.user.image" alt="" />
                 <div class="w-full">
@@ -69,7 +80,7 @@
                     <span @click="toggleReReply" class="btn">Reply</span>
                   </div>
                   <h4 class="mt-3">{{ reply.content }}</h4>
-
+                  <!-- 
                   <textarea
                     v-if="reReplyBox"
                     :placeholder="`Replying to @ ${reply.user.username}`"
@@ -77,7 +88,7 @@
                     :class="{ emptyTextBox: emptyTextBox }"
                     v-model="replyContent"
                     @mouseenter="sendReply"
-                  ></textarea>
+                  ></textarea> -->
                 </div>
               </div>
             </div>
@@ -110,7 +121,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import GoBack from "~/components/GoBack.vue";
 import ReplyComment from "~/components/ReplyComment.vue";
 import ReplyTextArea from "~/components/ReplyTextArea.vue";
@@ -120,7 +131,6 @@ export default {
   data() {
     return {
       id: this.$route.params.id,
-      feedback: "",
       newComment: "",
       emptyTextBox: false,
       replyBox: false,
@@ -132,19 +142,30 @@ export default {
   },
 
   computed: {
-    ...mapGetters("feedbacks", ["allFeedbacks", "allProductRequests"])
+    ...mapGetters("feedbacks", ["allFeedbacks", "allProductRequests"]),
+
+    feedback() {
+      const feedback = this.allProductRequests?.find(
+        el => el.id === Number(this.id)
+      );
+      return feedback;
+    },
+    user() {
+      return {
+        username: this.allFeedbacks?.currentUser?.username,
+        name: this.allFeedbacks?.currentUser?.name,
+        image: this.allFeedbacks?.currentUser?.image
+      };
+    }
   },
 
   mounted() {},
 
   methods: {
-    getFeedback() {
-      this.allProductRequests.forEach(e => {
-        if (e.id == this.$route.params.id) {
-          this.feedback = e;
-        }
-      });
-    },
+    ...mapMutations("feedbacks", [
+      "addCommentToFeedback",
+      "addReplyToFeedbackComment"
+    ]),
 
     postComment() {
       if (this.newComment.length == 0) {
@@ -153,20 +174,16 @@ export default {
           this.emptyTextBox = false;
         }, 3000);
       } else {
-        var comment = {
-          username: this.allFeedbacks.currentUser.username,
-          name: this.allFeedbacks.currentUser.name,
-          image: this.allFeedbacks.currentUser.image,
+        const comment = {
+          user: this.user,
           content: this.newComment
         };
-        console.log(comment);
-        if (this.feedback.comments) {
-          this.feedback.comments.push(comment);
-        } else {
-          this.feedback.comments = [];
-          this.feedback.comments.push(comment);
-        }
+        this.addCommentToFeedback({
+          feedbackId: this.id,
+          newComment: comment
+        });
       }
+      this.newComment = "";
     },
 
     toggleReply() {
@@ -178,17 +195,22 @@ export default {
     },
 
     sendReply() {
-      this.newReply = {
-        replyContent: this.replyContent,
-        replyingTo: this.replyingTo
-      };
-      console.log(this.neReply);
+      if (this.replyContent) {
+        const reply = {
+          content: this.replyContent,
+          replyingTo: this.replyingTo,
+          user: this.user
+        };
+        this.addReplyToFeedbackComment({
+          feedbackId: this.id,
+          commentId: this.commentId,
+          newReply: reply
+        });
+      }
     }
   },
 
-  created() {
-    this.getFeedback();
-  }
+  created() {}
 };
 </script>
 

@@ -19,7 +19,7 @@ export const mutations = {
   },
   addReplyToFeedbackComment(state, {feedbackId, commentId, newReply}) {  
     const feedback = state.productRequests?.find(el => el.id === Number(feedbackId))
-    const comment = feedback?.find(el => el.id === Number(commentId))
+    const comment = feedback?.comments?.find(el => el.id === Number(commentId))
     comment?.replies?.push(newReply);
   }
 };

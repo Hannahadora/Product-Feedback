@@ -43,6 +43,9 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 import GoBack from '~/components/GoBack.vue'
+import uuid from 'uuid'
+
+
 export default {
   components: { GoBack },
     name: 'New',
@@ -82,6 +85,7 @@ export default {
                     title: this.title,
                     category: this.category,
                     description: this.description,
+                    id: uuid()
                 }
                 this.$store.commit('feedbacks/addFeedback', {...this.newFeedback})
                 this.$router.push('/')

@@ -99,7 +99,7 @@
 
         <div v-if="displayedFeedback">
           <NuxtLink
-            :to="`/Feedback/details/${x.id}`"
+            :to="`/Feedback/${x.id}`"
             class="sugg-box md:mx-auto m-6"
             v-for="x in displayedFeedback"
             :key="x.id"

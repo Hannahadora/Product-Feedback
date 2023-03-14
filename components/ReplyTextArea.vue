@@ -5,7 +5,7 @@
       class="textbox mb-5 mt-4 bg-gray-100 rounded"
       :class="{ 'border border-red-300': emptyTextBox }"
       v-model="content"
-      @input="sendReply"
+      @keyup.enter="sendReply"
     ></textarea>
   </div>
 </template>
@@ -45,7 +45,6 @@ export default {
 
   methods: {
     ...mapMutations("feedbacks", [
-      "addCommentToFeedback",
       "addReplyToFeedbackComment"
     ]),
     sendReply() {
@@ -55,12 +54,12 @@ export default {
           replyingTo: this.replyingTo,
           user: this.user
         };
-      console.log((reply))
         this.addReplyToFeedbackComment({
           feedbackId: this.id,
           commentId: this.comment?.id,
           newReply: reply
         });
+        this.content = "";
       } else {
         this.emptyTextBox = true;
       }

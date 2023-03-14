@@ -11,7 +11,11 @@ export const state = () => ({
 
 export const mutations = {
   addFeedback(state, newFeedback) {
-    state.productRequests.unshift(newFeedback)
+    state.productRequests.unshift({...newFeedback, upvotes: 1, comments: []})
+  },
+  updateFeedback(state, {feedbackId, payload}) {
+    const feedback = state.productRequests?.find(el => el.id === Number(feedbackId))
+    feedback = {...payload}
   },
   addCommentToFeedback(state, {feedbackId, newComment}) {
     const feedback = state.productRequests?.find(el => el.id === Number(feedbackId))

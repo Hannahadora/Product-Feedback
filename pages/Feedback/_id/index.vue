@@ -19,7 +19,9 @@
         />
         {{ feedback && feedback.upvotes }}
       </button>
-      <div class="w-full flex md:flex-row flex-col-reverse items-center justify-between">
+      <div
+        class="w-full flex md:flex-row flex-col-reverse items-center justify-between"
+      >
         <div class="">
           <h3 class="sugg-title">{{ feedback && feedback.title }}</h3>
           <p class="sugg-desc mt-2">{{ feedback && feedback.description }}</p>
@@ -35,10 +37,7 @@
           {{ feedback && feedback.comments && feedback.comments.length }}
         </p>
         <div class="w-full md:hidden mt-6 flex items-center justify-between">
-          <p
-            class="flex items-center"
-            v-if="feedback && feedback.comments"
-          >
+          <p class="flex items-center" v-if="feedback && feedback.comments">
             <img src="~/assets/shared/icon-comments.svg" alt="" class="mr-2" />
             {{ feedback && feedback.comments && feedback.comments.length }}
           </p>
@@ -94,6 +93,7 @@
 import { mapGetters, mapMutations } from "vuex";
 import GoBack from "~/components/GoBack.vue";
 import Comments from "~/components/Comments.vue";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   components: { GoBack, Comments },
@@ -135,7 +135,8 @@ export default {
       } else {
         const comment = {
           user: this.user,
-          content: this.newComment
+          content: this.newComment,
+          id: uuidv4()
         };
         this.addCommentToFeedback({
           feedbackId: this.id,

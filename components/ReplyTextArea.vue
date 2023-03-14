@@ -12,6 +12,7 @@
 
 <script>
 import { mapMutations } from "vuex";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   name: "ReplyTextArea",
@@ -52,7 +53,8 @@ export default {
         const reply = {
           content: this.content,
           replyingTo: this.replyingTo,
-          user: this.user
+          user: this.user,
+          id: uuidv4()
         };
         this.addReplyToFeedbackComment({
           feedbackId: this.id,

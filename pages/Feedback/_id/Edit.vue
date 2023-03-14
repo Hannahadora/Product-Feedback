@@ -109,7 +109,7 @@ export default {
 
     selectedFeedback() {
       const feedback = this.allProductRequests?.find(
-        el => el.id === Number(this.id)
+        el => el.id.toString() === this.id.toString()
       );
       return feedback;
     }

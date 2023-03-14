@@ -14,16 +14,16 @@ export const mutations = {
     state.productRequests.unshift({...newFeedback, upvotes: 1, comments: []})
   },
   updateFeedback(state, {feedbackId, payload}) {
-    const feedback = state.productRequests?.find(el => el.id === Number(feedbackId))
+    const feedback = state.productRequests?.find(el => el?.id?.toString() === feedbackId?.toString())
     feedback = {...payload}
   },
   addCommentToFeedback(state, {feedbackId, newComment}) {
-    const feedback = state.productRequests?.find(el => el.id === Number(feedbackId))
+    const feedback = state.productRequests?.find(el => el?.id?.toString() === feedbackId?.toString())
     feedback.comments.push({...newComment, replies: []});
   },
   addReplyToFeedbackComment(state, {feedbackId, commentId, newReply}) {  
-    const feedback = state.productRequests?.find(el => el.id === Number(feedbackId))
-    const comment = feedback?.comments?.find(el => el.id === Number(commentId))
+    const feedback = state.productRequests?.find(el => el?.id?.toString() === feedbackId?.toString())
+    const comment = feedback?.comments?.find(el => el?.id?.toString() === commentId.toString())
     comment?.replies?.push(newReply);
   }
 };

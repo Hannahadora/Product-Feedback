@@ -16,9 +16,9 @@
           </div>
           <span @click="toggleReply" class="btn">Reply</span>
         </div>
-        <h4 class="mt-3">{{ comment && comment.content }}</h4>
+        <h4 class="mt-3 brk-line">{{ comment && comment.content }}</h4>
 
-        <reply-text-area v-if="replyBox" :comment="comment" :user="user" />
+        <reply-text-area v-if="replyBox" :replyingTo="replyingTo" :comment="comment" :user="user" @success="replyBox = false" />
 
         <div
           class="md:block hidden mt-6"
@@ -69,6 +69,13 @@ export default {
     }
   },
 
+  computed: {
+    replyingTo() {
+      return this.comment?.user?.username
+    }
+  },
+
+
   methods: {
     toggleReReply() {
       this.reReply = !this.reReply;
@@ -89,5 +96,9 @@ export default {
   width: 60px;
   border: 1px solid red;
   border-radius: 50%;
+}
+
+.brk-line {
+  line-break: anywhere;
 }
 </style>

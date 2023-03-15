@@ -11,10 +11,10 @@
           <span @click="toggleReReply" class="btn">Reply</span>
         </div>
         <h4 class="mt-3">
-          <span class="italic font-light">@ {{ reply.replyingTo }}</span>
+          <span class="italic font-light brk-line">@ {{ reply.replyingTo }}</span>
           {{ reply.content }}
         </h4>
-        <reply-text-area v-if="reReply" :comment="comment" :user="user" />
+        <reply-text-area v-if="reReply" :replyingTo="replyingTo" :comment="comment" :user="user" @success="reReply = false" />
       </div>
     </div>
   </div>
@@ -53,6 +53,12 @@ export default {
     }
   },
 
+  computed: {
+    replyingTo() {
+      return this.reply?.user?.username
+    }
+  },
+
   methods: {
     toggleReReply() {
       this.reReply = !this.reReply;
@@ -61,4 +67,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.brk-line {
+  line-break: anywhere;
+}
+</style>

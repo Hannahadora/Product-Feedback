@@ -70,14 +70,24 @@
       ></textarea>
 
       <div
-        class="flex md:flex-row flex-col items-center md:justify-end justify-center gap-6 mb-10"
+        class="flex md:flex-row flex-col-reverse items-center md:justify-between justify-center mb-10 gap-6"
       >
-        <button @click="cancel" class="cancel-btn md:w-24 w-full">
-          Cancel
-        </button>
-        <button @click="editFeedback" class="pry-btn">
-          Edit Feedback
-        </button>
+        <div class="md:w-1/3 w-full">
+          <button @click="deleteFeedback" class="delete-btn w-full">
+            Delete
+          </button>
+        </div>
+
+        <div
+          class="md:w-1/3 w-full flex md:flex-row flex-col-reverse items-center md:justify-end justify-center gap-6"
+        >
+          <button @click="cancel" class="cancel-btn md:w-24 w-full">
+            Cancel
+          </button>
+          <button @click="editFeedback" class="pry-btn w-full">
+            Update Feedback
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -105,33 +115,47 @@ export default {
   },
 
   computed: {
-    ...mapGetters("feedbacks", ["allFeedbacks", "allProductRequests"]),
+    ...mapGetters("feedbacks", [
+      "allFeedbacks",
+      "allProductRequests",
+      "selectedFeedback"
+    ]),
 
-    selectedFeedback() {
-      const feedback = this.allProductRequests?.find(
-        el => el.id.toString() === this.id.toString()
+    currentFeedback() {
+      const data = this.allProductRequests?.find(
+        el => el?.id?.toString() === this.id?.toString()
       );
-      return feedback;
+      return data && data;
     }
   },
 
   methods: {
-    ...mapMutations("feedbacks", ["updateFeedback"]),
+    ...mapMutations("feedbacks", [
+      "updateFeedback",
+      "selectFeedback",
+      "deleteAFeedback"
+    ]),
     editFeedback() {
-      this.updateFeedback({
-        feedbackId: this.id,
-        payload: this.feedback
-      });
-      this.$router.push("/");
+      this.updateFeedback(this.feedback);
+      this.$router.push(`/Feedback/${this.currentFeedback?.id}`);
     },
 
     cancel() {
       this.$router.push("/");
+    },
+
+    deleteFeedback() {
+      if (confirm("You are about to delete this feedback!") == true) {
+        this.deleteAFeedback(this.id);
+        this.$router.push("/");
+      }
     }
   },
 
   mounted() {
-    this.feedback = {... this.selectedFeedback}
+    this.feedback = this.selectedFeedback
+      ? { ...this.selectedFeedback }
+      : { ...this.currentFeedback };
   }
 };
 </script>

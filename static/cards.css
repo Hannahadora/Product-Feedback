@@ -37,6 +37,9 @@
     color: #4661E6;
     border-radius: 10px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .map-card {

@@ -35,18 +35,21 @@ export default {
       type: Object,
       default: {},
       required: true
+    },
+    replyingTo: {
+      type: String,
+      default: "",
     }
   },
 
   computed: {
-    replyingTo() {
-      return this.comment?.user?.username;
-    }
+  
   },
 
   methods: {
     ...mapMutations("feedbacks", [
-      "addReplyToFeedbackComment"
+      "addReplyToFeedbackComment",
+      "selectFeedback"
     ]),
     sendReply() {
       if (this.content) {
@@ -56,12 +59,13 @@ export default {
           user: this.user,
           id: uuidv4()
         };
+        this.selectFeedback(this.id)
         this.addReplyToFeedbackComment({
-          feedbackId: this.id,
           commentId: this.comment?.id,
           newReply: reply
         });
         this.content = "";
+        this.$emit('success')
       } else {
         this.emptyTextBox = true;
       }

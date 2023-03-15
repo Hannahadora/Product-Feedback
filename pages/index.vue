@@ -16,59 +16,62 @@
         "
         :class="{ relative: showMenu }"
       >
-        <HeaderCard class="lg:w-full md:w-1/3 w-full" @menu="toggleMenu" />
-        <div
-          class="lg:block md:flex gap-3 lg:w-full md:w-2/3 w-1/2 lg:mt-5 md:mt-0 mt-5 bg-blue-50 md:h-auto md:h-full h-screen md:relative absolute right-0 md:top-0 top-14"
-          :class="{ hidden: !showMenu }"
-        >
-          <ul class="card filter-card lg:w-auto md:w-1/2 w-full">
-            <li
-              :class="{ active: type === '' }"
-              @click="feedbackType('')"
-              class="filter-btns"
-            >
-              All
-            </li>
-            <li
-              :class="{ active: type === 'ui' }"
-              @click="feedbackType('ui')"
-              class="filter-btns"
-            >
-              UI
-            </li>
-            <li
-              :class="{ active: type === 'ux' }"
-              @click="feedbackType('ux')"
-              class="filter-btns"
-            >
-              UX
-            </li>
-            <li
-              :class="{ active: type === 'enhancement' }"
-              @click="feedbackType('enhancement')"
-              class="filter-btns"
-            >
-              Enhancement
-            </li>
-            <li
-              :class="{ active: type === 'bug' }"
-              @click="feedbackType('bug')"
-              class="filter-btns"
-            >
-              Bug
-            </li>
-            <li
-              :class="{ active: type === 'feature' }"
-              @click="feedbackType('feature')"
-              class="filter-btns"
-            >
-              Feature
-            </li>
-          </ul>
+      
+        <div class="bg-transparent" :class="{ 'w-full fixed h-screen trans-dark-bg': showMenu }">
+          <HeaderCard class="lg:w-full md:w-1/3 w-full" @menu="toggleMenu" />
+          <div
+            class="lg:block md:flex gap-3 lg:w-full md:w-2/3 w-3/5 lg:mt-5 md:mt-0 mt-5 bg-blue-50 md:h-auto md:h-full h-screen md:relative absolute right-0 md:top-0 top-14"
+            :class="{ hidden: !showMenu }"
+          >
+            <ul class="card filter-card lg:w-auto md:w-1/2 w-full">
+              <li
+                :class="{ active: type === '' }"
+                @click="feedbackType('')"
+                class="filter-btns"
+              >
+                All
+              </li>
+              <li
+                :class="{ active: type === 'ui' }"
+                @click="feedbackType('ui')"
+                class="filter-btns"
+              >
+                UI
+              </li>
+              <li
+                :class="{ active: type === 'ux' }"
+                @click="feedbackType('ux')"
+                class="filter-btns"
+              >
+                UX
+              </li>
+              <li
+                :class="{ active: type === 'enhancement' }"
+                @click="feedbackType('enhancement')"
+                class="filter-btns"
+              >
+                Enhancement
+              </li>
+              <li
+                :class="{ active: type === 'bug' }"
+                @click="feedbackType('bug')"
+                class="filter-btns"
+              >
+                Bug
+              </li>
+              <li
+                :class="{ active: type === 'feature' }"
+                @click="feedbackType('feature')"
+                class="filter-btns"
+              >
+                Feature
+              </li>
+            </ul>
 
-          <RoadmapCard
-            class="md:block lg:w-auto md:w-1/2 w-full lg:mt-5 md:mt-0 mt-5"
-          />
+            <RoadmapCard
+              class="md:block lg:w-auto md:w-1/2 w-full lg:mt-5 md:mt-0 mt-5"
+            />
+          </div>
         </div>
       </div>
 
@@ -167,7 +170,9 @@
           v-show="displayedFeedback.length === 0"
           class="emptyCard lg:w-full w-11/12 my-6 mx-auto"
         >
-          <div class="lg:w-1/2 w-10/12 m-auto flex flex-col justify-center items-center">
+          <div
+            class="lg:w-1/2 w-10/12 m-auto flex flex-col justify-center items-center"
+          >
             <img
               class="mb-6"
               src="~/assets/suggestions/illustration-empty.svg"
@@ -218,8 +223,8 @@ export default {
 
   watch: {
     type() {
-      if(this.showMenu) {
-        this.showMenu = false
+      if (this.showMenu) {
+        this.showMenu = false;
       }
     }
   },
@@ -269,5 +274,9 @@ export default {
 .active {
   background: #4661e6;
   color: #fff;
+}
+
+.trans-dark-bg {
+  background: #00000060;
 }
 </style>

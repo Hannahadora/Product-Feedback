@@ -46,7 +46,7 @@
 
         <div v-for="x in plannedRequests" :key="x.id">
           <div class="map-card border-t-8 border-yellow-600">
-            <NuxtLink :to="`Feedback/${x.status}/${x.id}`">
+            <NuxtLink :to="`/Feedback/${x.id}`">
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-4">
                   <eclipse :planned="true" />
@@ -106,7 +106,7 @@
 
         <div v-for="x in inProgress" :key="x.id">
           <div class="map-card border-t-8 border-purple-600">
-            <NuxtLink :to="`Feedback/${x.status}/${x.id}`">
+            <NuxtLink :to="`/Feedback/${x.id}`">
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-4">
                   <eclipse :inProgress="true" />
@@ -164,7 +164,7 @@
 
         <div v-for="x in liveRequests" :key="x.id">
           <div class="map-card border-t-8 border-blue-400">
-            <NuxtLink :to="`Feedback/${x.status}/${x.id}`">
+            <NuxtLink :to="`/Feedback/${x.id}`">
               <div class="flex flex-col gap-4">
                 <div class="flex items-center gap-4">
                   <eclipse :live="true" />

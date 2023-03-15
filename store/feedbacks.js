@@ -5,38 +5,41 @@ import feedbacks from '../static/json/data.json'
 export const state = () => ({
   namespaced: true,
   feedbacks: feedbacks,
-  productRequests: feedbacks.productRequests,
-  // stateId: route.params.id
+  feedback: null
 });
 
 export const mutations = {
   addFeedback(state, newFeedback) {
-    state.productRequests.unshift({...newFeedback, upvotes: 1, comments: []})
+    state.feedbacks?.productRequests.unshift({ ...newFeedback, upvotes: 1, comments: [] })
   },
-  updateFeedback(state, {feedbackId, payload}) {
-    const feedback = state.productRequests?.find(el => el?.id?.toString() === feedbackId?.toString())
-    feedback = {...payload}
+  updateFeedback(state, payload) {
+    state.feedback = { ...payload }
   },
-  addCommentToFeedback(state, {feedbackId, newComment}) {
-    const feedback = state.productRequests?.find(el => el?.id?.toString() === feedbackId?.toString())
-    feedback.comments.push({...newComment, replies: []});
+  addCommentToFeedback(state, newComment) {
+    state.feedback?.comments?.push({ ...newComment, replies: [] });
   },
-  addReplyToFeedbackComment(state, {feedbackId, commentId, newReply}) {  
-    const feedback = state.productRequests?.find(el => el?.id?.toString() === feedbackId?.toString())
-    const comment = feedback?.comments?.find(el => el?.id?.toString() === commentId?.toString())
+  addReplyToFeedbackComment(state, { commentId, newReply }) {
+    const comment = state.feedback?.comments?.find(el => el?.id?.toString() === commentId?.toString())
     comment?.replies?.push(newReply);
+  },
+  selectFeedback(state, feedbackId) {
+    state.feedback = state.feedbacks?.productRequests?.find(el => el?.id?.toString() === feedbackId?.toString())
+  },
+  deleteAFeedback(state, feedbackId) {
+    let index;
+    state.feedbacks?.productRequests?.forEach((el, i) => {
+      if(el?.id?.toString() === feedbackId?.toString())
+      index = i
+    })
+    state.feedbacks?.productRequests?.splice(index, 1)
   }
 };
 
 export const actions = {
-
 };
 
 export const getters = {
   allFeedbacks: (state) => state.feedbacks,
-  allProductRequests: (state) => state.feedbacks.productRequests,
-  // allComments: (state) => state.productRequests.forEach(el => {
-  //   [el].comments
-  // })
-  // feedback: (state) => state.productRequests.find((el) => el.id == state.stateId)
+  allProductRequests: (state) => state.feedbacks?.productRequests,
+  selectedFeedback: (state) => state.feedback
 };

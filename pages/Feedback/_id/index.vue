@@ -74,13 +74,14 @@
       <textarea
         name="comment"
         id="commentContent"
+        maxlength="250"
         placeholder="Type your comment here"
         class="textbox mb-5 mt-2 bg-gray-100 rounded"
         :class="{ emptyTextBox: emptyTextBox }"
         v-model="newComment"
       ></textarea>
       <div class="w-full flex items-start justify-between">
-        <span class="text-xs">0/250</span>
+        <span class="text-xs">{{ text_count }}/250</span>
         <button @click="postComment" class="pry-btn text-sm text-white">
           Post Comment
         </button>
@@ -106,25 +107,34 @@ export default {
   },
 
   computed: {
-    ...mapGetters("feedbacks", ["allFeedbacks", "allProductRequests"]),
+    ...mapGetters("feedbacks", [
+      "allFeedbacks",
+      "allProductRequests",
+      "selectedFeedback"
+    ]),
 
-    feedback() {
-      const feedback = this.allProductRequests?.find(
-        el => el.id.toString() === this.id.toString()
-      );
-      return feedback;
-    },
     user() {
       return {
         username: this.allFeedbacks?.currentUser?.username,
         name: this.allFeedbacks?.currentUser?.name,
         image: this.allFeedbacks?.currentUser?.image
       };
+    },
+
+    feedback() {
+      const data = this.allProductRequests?.find(
+        el => el?.id?.toString() === this.id?.toString()
+      );
+      return this.selectedFeedback ? this.selectedFeedback : data;
+    },
+
+    text_count() {
+      return this.newComment.length || 0;
     }
   },
 
   methods: {
-    ...mapMutations("feedbacks", ["addCommentToFeedback"]),
+    ...mapMutations("feedbacks", ["addCommentToFeedback", "selectFeedback"]),
 
     postComment() {
       if (this.newComment.length == 0) {
@@ -138,10 +148,8 @@ export default {
           content: this.newComment,
           id: uuidv4()
         };
-        this.addCommentToFeedback({
-          feedbackId: this.id,
-          newComment: comment
-        });
+        this.selectFeedback(this.id)
+        this.addCommentToFeedback(comment);
       }
       this.newComment = "";
     }

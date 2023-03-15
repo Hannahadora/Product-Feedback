@@ -20,7 +20,7 @@ body {
   color: #fff;
   border-radius: 10px;
   padding: auto;
-  width: 158px;
+  width: 160px;
   height: 43px;
 }
 
@@ -40,6 +40,16 @@ body {
   color: #fff;
   border-radius: 10px;
   padding: auto;
+  height: 43px;
+}
+
+.delete-btn {
+  font-size: 13px;
+  background-color: #ec0d0d;
+  color: #fff;
+  border-radius: 10px;
+  padding: auto;
+  width: 160px;
   height: 43px;
 }
 

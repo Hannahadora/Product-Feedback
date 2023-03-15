@@ -205,7 +205,7 @@
 import RoadmapCard from "~/components/cards/RoadmapCard.vue";
 import HeaderCard from "~/components/cards/HeaderCard.vue";
 
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "index",
@@ -229,7 +229,9 @@ export default {
     }
   },
 
-  mounted() {},
+  mounted() {
+    this.selectFeedback("")
+  },
 
   computed: {
     ...mapGetters("feedbacks", [
@@ -259,6 +261,7 @@ export default {
   },
 
   methods: {
+    ...mapMutations('feedbacks', ["selectFeedback"]),
     feedbackType(type) {
       this.type = type;
     },

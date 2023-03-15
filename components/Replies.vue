@@ -69,6 +69,6 @@ export default {
 
 <style>
 .brk-line {
-  line-break: anywhere;
+  overflow-wrap: anywhere;
 }
 </style>

@@ -99,6 +99,6 @@ export default {
 }
 
 .brk-line {
-  line-break: anywhere;
+  overflow-wrap: anywhere
 }
 </style>
